@@ -11,9 +11,25 @@
 <br>
 
 <div align="center">
-<code>npm install --save parse5-parser-stream</code>
+<code>npm install --save parse5 parse5-parser-stream</code>
 </div>
 <br>
+
+## Usage
+
+`ParserStream` accepts HTML text through a writable stream and exposes the parsed document when the stream finishes. This example also serializes the result with `parse5`:
+
+```js
+import { finished } from 'node:stream/promises';
+import { serialize } from 'parse5';
+import { ParserStream } from 'parse5-parser-stream';
+
+const parser = new ParserStream();
+parser.end('<!doctype html><p>Hello, world!</p>');
+await finished(parser);
+
+console.log(serialize(parser.document));
+```
 
 <p align="center">
   📖 <a href="https://parse5.js.org/modules/parse5-parser-stream.html"><b>Documentation</b></a> 📖
